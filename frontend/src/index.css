@@ -1,0 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    background-color: #d1ccc0;
+    color: #34495e;
+}
