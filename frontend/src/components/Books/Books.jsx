@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Books = () => {
+function Books() {
 
     const [books, setBooks] = useState([]);
     const [error, setError] = useState(null);
@@ -28,6 +28,7 @@ const Books = () => {
                 </li>
                 ))}
             </ul>
+            <p>books: { books.length }</p>
         </>
     );
 };

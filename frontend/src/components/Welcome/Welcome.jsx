@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './Welcome.css'; // CSS dosyasını unutma!
 
-const Welcome = () => {
+function Welcome() {
 
     return (
         <>
