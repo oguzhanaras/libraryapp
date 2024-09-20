@@ -4,21 +4,25 @@ import Books from "./components/Books/Books";
 import Navbar from './components/Navbar/Navbar';
 import Publishers from "./components/Publishers/Publishers";
 import Categories from "./components/Categories/Categories";
+import BookDetail from "./components/Books/BookDetail.jsx";
 
 function App() {
 
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Welcome />} />
-        <Route path="/books" element={<Books />} />
-        <Route path="/publishers" element={<Publishers />} />
-        <Route path="/categories" element={<Categories />} />
-        {/* yanlış rotalarda anasayfaya yonlendirme */}
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Welcome />} />
+          <Route path="/books" element={<Books />} />
+          <Route path="/books/:id" element={<BookDetail />} />
+          <Route path="/publishers" element={<Publishers />} />
+          <Route path="/categories" element={<Categories />} />
+          {/* yanlış rotalarda anasayfaya yonlendirme */}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
