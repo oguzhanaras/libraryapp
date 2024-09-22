@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Publishers() {
     const [publishers, setPublishers] = useState([]);
@@ -53,13 +54,6 @@ function Publishers() {
     return (
         <>
             <h2>Publishers</h2>
-            <ul>
-                {publishers.map((publisher) => (
-                <li key={publisher.id}>{publisher.name}</li>
-                ))}
-            </ul>
-            <p>Total publishers: {publishers.length}</p>
-
             <form method="post" onSubmit={addPublisher}>
                 <label htmlFor="name">Adınız:</label>
                 <input
@@ -87,6 +81,14 @@ function Publishers() {
 
                 <button type="submit">Ekle</button>
             </form>
+            <ul>
+                {publishers.map((publisher) => (
+                    <Link to={`/publishers/${publisher.id}`} key={publisher.id}>
+                        <li key={publisher.id}>{publisher.name}</li>
+                    </Link>
+                ))}
+            </ul>
+            <p>Total publishers: {publishers.length}</p>
         </>
     );
 }
