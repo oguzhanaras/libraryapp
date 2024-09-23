@@ -8,6 +8,8 @@ import BookDetail from "./components/Books/BookDetail.jsx";
 import BookEdit from './components/Books/BookEdit.jsx';
 import PublisherDetail from './components/Publishers/PublisherDetail.jsx';
 import PublisherEdit from './components/Publishers/PublisherEdit.jsx';
+import CategoryDetail from './components/Categories/CategoryDetail.jsx';
+import CategoryEdit from './components/Categories/CategoryEdit.jsx';
 
 function App() {
 
@@ -24,6 +26,8 @@ function App() {
           <Route path="/publishers/:id" element={<PublisherDetail />} />
           <Route path="/publishers/edit/:id" element={<PublisherEdit />} />
           <Route path="/categories" element={<Categories />} />
+          <Route path="/categories/:id" element={<CategoryDetail />} />
+          <Route path="/categories/edit/:id" element={<CategoryEdit />} />
           {/* yanlış rotalarda anasayfaya yonlendirme */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

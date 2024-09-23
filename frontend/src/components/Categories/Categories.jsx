@@ -1,16 +1,20 @@
+// Categories.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Categories() {
-
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState(null);
     const [formData, setFormData] = useState({
         name: "",
-        description: ""
+        description: "",
     });
+    const navigate = useNavigate();
 
     useEffect(() => {
+        // kategorileri çekme
         axios
         .get(import.meta.env.VITE_APP_BASE_URL + "/api/v1/categories")
         .then((response) => {
@@ -22,6 +26,7 @@ function Categories() {
     }, []);
 
     const handleInputChange = (e) => {
+        // form verilerini güncelleme
         setFormData({
         ...formData,
         [e.target.name]: e.target.value,
@@ -31,16 +36,14 @@ function Categories() {
     const addCategory = (e) => {
         e.preventDefault();
 
+        // kategori ekleme
         axios
         .post(import.meta.env.VITE_APP_BASE_URL + "/api/v1/categories", formData)
         .then((response) => {
-            // publisher guncelleme
-            setPublishers([...publishers, response.data]);
-            // form temizle
+            setCategories([...categories, response.data]);
             setFormData({
             name: "",
-            establishmentYear: "",
-            address: "",
+            description: "",
             });
         })
         .catch((error) => {
@@ -51,18 +54,46 @@ function Categories() {
     if (error) return <div>Hata: {error}</div>;
 
     return (
-        <>
-            {categories.map((category) => {
-                return (
-                    <div key={category.id}>
-                        <h3>{category.name}</h3>
-                        <p>{category.description}</p>
-                    </div>
-                );
-            })}
-            <p>categories length: {categories.length}</p>
-        </>
-    )
+        <div>
+            <h2>Kategori Ekle</h2>
+            <form onSubmit={addCategory}>
+                <div>
+                <label htmlFor="name">Kategori İsmi:</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                />
+                </div>
+                <div>
+                <label htmlFor="description">Açıklama:</label>
+                <input
+                    type="text"
+                    id="description"
+                    name="description"
+                    value={formData.description}
+                    onChange={handleInputChange}
+                    required
+                />
+                </div>
+                <button type="submit">Kategori Ekle</button>
+            </form>
+
+            <h2>Mevcut Kategoriler</h2>
+            <div>
+                {categories.map((category) => (
+                    <Link to={`/categories/${category.id}`} key={category.id}>
+                        <div>
+                            <h3>{category.name}</h3>
+                        </div>
+                    </Link>
+                ))}
+            </div>
+        </div>
+    );
 }
 
 export default Categories;

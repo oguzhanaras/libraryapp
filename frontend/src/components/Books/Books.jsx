@@ -75,27 +75,6 @@ function Books() {
         });
     };
 
-    const handleEditBook = (index) => {
-        const selectedBook = books[index];
-        setBook({
-            ...selectedBook,
-            authorId: selectedBook.author.id,
-            publisherId: selectedBook.publisher.id,
-            categoryIds: selectedBook.categories.map(cat => cat.id),
-        });
-        setEditIndex(index);
-    };
-
-    const handleDeleteBook = (id) => {
-        axios.delete(`${import.meta.env.VITE_APP_BASE_URL}/api/v1/books/${id}`)
-            .then(() => {
-                setBooks(books.filter(book => book.id !== id));
-            })
-            .catch(error => {
-                setError(error.message);
-            });
-    };
-
     if (error) return <div>Hata: {error}</div>;
 
     return (
