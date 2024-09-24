@@ -10,6 +10,9 @@ import PublisherDetail from './components/Publishers/PublisherDetail.jsx';
 import PublisherEdit from './components/Publishers/PublisherEdit.jsx';
 import CategoryDetail from './components/Categories/CategoryDetail.jsx';
 import CategoryEdit from './components/Categories/CategoryEdit.jsx';
+import Authors from "./components/Authors/Authors";
+import AuthorDetail from './components/Authors/AuthorDetail.jsx';
+import AuthorEdit from './components/Authors/AuthorEdit.jsx';
 
 function App() {
 
@@ -28,6 +31,9 @@ function App() {
           <Route path="/categories" element={<Categories />} />
           <Route path="/categories/:id" element={<CategoryDetail />} />
           <Route path="/categories/edit/:id" element={<CategoryEdit />} />
+          <Route path="/authors" element={<Authors />} />
+          <Route path="/authors/:id" element={<AuthorDetail />} />
+          <Route path="/authors/edit/:id" element={<AuthorEdit />} />
           {/* yanlış rotalarda anasayfaya yonlendirme */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

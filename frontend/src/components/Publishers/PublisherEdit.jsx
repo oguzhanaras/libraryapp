@@ -13,7 +13,6 @@ function PublisherEdit() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Yayınevi bilgilerini çek ve formu doldur
         axios
         .get(`${import.meta.env.VITE_APP_BASE_URL}/api/v1/publishers/${id}`)
         .then((response) => {
@@ -34,11 +33,11 @@ function PublisherEdit() {
     const updatePublisher = (e) => {
         e.preventDefault();
 
-        // Yayınevi güncelle
+        // güncelle
         axios
         .put(`${import.meta.env.VITE_APP_BASE_URL}/api/v1/publishers/${id}`, formData)
         .then(() => {
-            navigate(`/publishers/${id}`); // Güncelleme sonrası detay sayfasına geri dön
+            navigate(`/publishers/${id}`); // güncelleme sonrası detay sayfasına geri dön
         })
         .catch((error) => {
             setError(error.message);

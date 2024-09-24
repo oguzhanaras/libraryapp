@@ -30,6 +30,9 @@ const Navbar = () => {
                 <li>
                     <Link to="/categories" onClick={toggleMenu}>Categories</Link>
                 </li>
+                <li>
+                    <Link to="/authors" onClick={toggleMenu}>authors</Link>
+                </li>
             </ul>
         </nav>
     );

@@ -3,13 +3,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function PublisherDetail() {
-    const { id } = useParams(); // URL'den publisher ID'sini alır
+    const { id } = useParams();
     const navigate = useNavigate();
     const [publisher, setPublisher] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Seçilen publisher'ın detaylarını al
+        // seçilen publisher detayları
         axios
         .get(`${import.meta.env.VITE_APP_BASE_URL}/api/v1/publishers/${id}`)
         .then((response) => {
@@ -21,11 +21,11 @@ function PublisherDetail() {
     }, [id]);
 
     const deletePublisher = () => {
-        // Publisher silme işlemi
+        // publisher silme işlemi
         axios
         .delete(`${import.meta.env.VITE_APP_BASE_URL}/api/v1/publishers/${id}`)
         .then(() => {
-            navigate("/publishers"); // Silme işlemi sonrası publishers listesine geri dön
+            navigate("/publishers"); // silme işlemi sonrası publishers listesine geri dön
         })
         .catch((error) => {
             setError(error.message);
