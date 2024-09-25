@@ -79,91 +79,94 @@ function Books() {
 
     return (
         <>
-            <h2>Kitaplar</h2>
-            <div className="book-side">
-                <div className="books-container">
-                    <h6>Kitap Ara</h6>
-                    <div className="books-input">
-                        <input
-                            type="text"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            placeholder="Kitap adı ile ara..."
-                            className="search-input"
-                        />
-                    </div>
-                    <h6>Kitap Ekle</h6>
-                    <div className="books-input">
-                        <input
-                            type="text"
-                            value={book.name}
-                            onChange={(e) => setBook({ ...book, name: e.target.value })}
-                            placeholder="Kitap Adı"
-                        />
-                        <input
-                            type="number"
-                            value={book.publicationYear}
-                            onChange={(e) => setBook({ ...book, publicationYear: e.target.value })}
-                            placeholder="Yayın Yılı"
-                        />
-                        <input
-                            type="number"
-                            value={book.stock}
-                            onChange={(e) => setBook({ ...book, stock: e.target.value })}
-                            placeholder="Stok"
-                        />
-                        <select
-                            value={book.authorId}
-                            onChange={(e) => setBook({ ...book, authorId: parseInt(e.target.value) })}
-                        >
-                            <option value={0}>Yazar Seçin</option>
-                            {authors.map(author => (
-                                <option key={author.id} value={author.id}>{author.name}</option>
-                            ))}
-                        </select>
-                        <select
-                            value={book.publisherId}
-                            onChange={(e) => setBook({ ...book, publisherId: parseInt(e.target.value) })}
-                        >
-                            <option value={0}>Yayınevi Seçin</option>
-                            {publishers.map(publisher => (
-                                <option key={publisher.id} value={publisher.id}>{publisher.name}</option>
-                            ))}
-                        </select>
-                        <select
-                            multiple
-                            value={book.categoryIds}
-                            onChange={(e) => setBook({ ...book, categoryIds: Array.from(e.target.selectedOptions, option => option.value) })}
-                        >
-                            {categories.map(category => (
-                                <option key={category.id} value={category.id}>{category.name}</option>
-                            ))}
-                        </select>
-                        <button onClick={handleAddOrUpdateBook}>
-                            {editIndex !== null ? 'Güncelle' : 'Ekle'}
-                        </button>
-                    </div>
-                    <p>Kitap Sayısı: {filteredBooks.length}</p>
-                </div>
-            </div>
-            <div className="books-list">
-                {filteredBooks.map((book) => (
-                    <Link to={`/books/${book.id}`} className="book-card" key={book.id}>
-                        <div className="book-cover">
-                            <h3>{book.name}</h3>
-                            <h6>Yazar: {book.author.name}</h6>
-                            <span>Yayınevi: {book.publisher.name}</span>
-                            <p>Yayın Yılı: {book.publicationYear}</p>
-                            <p>Stok: {book.stock}</p>
-                            <h6>Kategoriler:</h6>
-                            <ul>
-                                {book.categories.map(category => (
-                                    <li key={category.id}>{category.name}</li>
-                                ))}
-                            </ul>
+            <h2 className="title">Kitaplar</h2>
+            <div className="books-page">  
+                <div className="book-form-container">
+                    <div className="book-side">
+                        <div className="books-container">
+                            <h6>Kitap Ara</h6>
+                            <div className="books-input">
+                                <input
+                                    type="text"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    placeholder="Kitap adı ile ara..."
+                                    className="search-input"
+                                />
+                            </div>
+                            <h6>Kitap Ekle</h6>
+                            <div className="books-input">
+                                <input
+                                    type="text"
+                                    value={book.name}
+                                    onChange={(e) => setBook({ ...book, name: e.target.value })}
+                                    placeholder="Kitap Adı"
+                                />
+                                <input
+                                    type="number"
+                                    value={book.publicationYear}
+                                    onChange={(e) => setBook({ ...book, publicationYear: e.target.value })}
+                                    placeholder="Yayın Yılı"
+                                />
+                                <input
+                                    type="number"
+                                    value={book.stock}
+                                    onChange={(e) => setBook({ ...book, stock: e.target.value })}
+                                    placeholder="Stok"
+                                />
+                                <select
+                                    value={book.authorId}
+                                    onChange={(e) => setBook({ ...book, authorId: parseInt(e.target.value) })}
+                                >
+                                    <option value={0}>Yazar Seçin</option>
+                                    {authors.map(author => (
+                                        <option key={author.id} value={author.id}>{author.name}</option>
+                                    ))}
+                                </select>
+                                <select
+                                    value={book.publisherId}
+                                    onChange={(e) => setBook({ ...book, publisherId: parseInt(e.target.value) })}
+                                >
+                                    <option value={0}>Yayınevi Seçin</option>
+                                    {publishers.map(publisher => (
+                                        <option key={publisher.id} value={publisher.id}>{publisher.name}</option>
+                                    ))}
+                                </select>
+                                <select
+                                    multiple
+                                    value={book.categoryIds}
+                                    onChange={(e) => setBook({ ...book, categoryIds: Array.from(e.target.selectedOptions, option => option.value) })}
+                                >
+                                    {categories.map(category => (
+                                        <option key={category.id} value={category.id}>{category.name}</option>
+                                    ))}
+                                </select>
+                                <button onClick={handleAddOrUpdateBook}>
+                                    {editIndex !== null ? 'Güncelle' : 'Ekle'}
+                                </button>
+                            </div>
                         </div>
-                    </Link>
-                ))}
+                    </div>
+                </div>
+                <div className="books-list">
+                    {filteredBooks.map((book) => (
+                        <Link to={`/books/${book.id}`} className="book-card book-shape" key={book.id}>
+                            <div className="book-cover">
+                                <h3>{book.name}</h3>
+                                <span className="author">Yazar: <strong>{book.author.name}</strong></span>
+                                <hr />
+                                <span>Yayınevi: {book.publisher.name}</span>
+                                <p>Yayın Yılı: {book.publicationYear}</p>
+                                <h6>Kategoriler:</h6>
+                                <ul>
+                                    {book.categories.map(category => (
+                                        <li key={category.id}>{category.name}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
             </div>
         </>
     );

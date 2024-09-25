@@ -1,0 +1,57 @@
+.book-detail {
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Başlık */
+.book-detail h2 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+/* Diğer bilgiler */
+.book-detail p {
+    font-size: 16px; 
+    color: #34495e;
+    margin: 8px 0;
+}
+
+/* Kategori başlığı */
+.book-detail h6 {
+    margin-top: 15px;
+    color: #2c3e50;
+}
+
+/* Kategoriler */
+.book-detail ul {
+    padding: 0;
+    list-style-type: none;
+    color: #2c3e50;
+}
+
+/* Kategori isimleri */
+.book-detail li {
+    font-size: 14px; 
+    color: #7f8c8d;
+    margin: 4px 0;
+}
+
+/* Butonlar */
+.book-detail button {
+    background-color: #3498db;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin: 10px 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.book-detail button:hover {
+    background-color: #2980b9;
+}

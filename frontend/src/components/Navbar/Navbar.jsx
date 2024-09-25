@@ -25,13 +25,16 @@ const Navbar = () => {
                     <Link to="/books" onClick={toggleMenu}>Books</Link>
                 </li>
                 <li>
+                    <Link to="/borrows" onClick={toggleMenu}>Borrows</Link>
+                </li>
+                <li>
                     <Link to="/publishers" onClick={toggleMenu}>Publishers</Link>
                 </li>
                 <li>
                     <Link to="/categories" onClick={toggleMenu}>Categories</Link>
                 </li>
                 <li>
-                    <Link to="/authors" onClick={toggleMenu}>authors</Link>
+                    <Link to="/authors" onClick={toggleMenu}>Authors</Link>
                 </li>
             </ul>
         </nav>
