@@ -1,3 +1,5 @@
+@import '../../index.css';
+
 .notification {
     padding: 15px;
     margin: 20px 0;
@@ -9,18 +11,18 @@
 }
 
 .notification.success {
-    background-color: #4caf50;
-    color: white;
+    background-color: var(--success-bg-color); /* Başarı mesajı arka plan rengi değişkeni */
+    color: var(--text-color-white);
 }
 
 .notification.error {
-    background-color: #f44336;
-    color: white;
+    background-color: var(--error-bg-color); /* Hata mesajı arka plan rengi değişkeni */
+    color: var(--text-color-white);
 }
 
 .notification button {
     background: none;
     border: none;
-    color: white;
+    color: var(--text-color-white);
     cursor: pointer;
 }

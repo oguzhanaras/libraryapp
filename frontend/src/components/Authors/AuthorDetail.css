@@ -1,0 +1,49 @@
+@import '../../index.css';
+
+.author-detail-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid var(--main-text-color);
+    border-radius: 8px;
+    background-color: var(--card-bg-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: var(--main-text-color);
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.edit-button, .delete-button {
+    padding: 10px 15px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.edit-button {
+    background-color: var(--button-bg-color);
+    color: white;
+}
+
+.edit-button:hover {
+    background-color: var(--button-hover-color);
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}

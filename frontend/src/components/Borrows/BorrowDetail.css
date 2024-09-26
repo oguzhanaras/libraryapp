@@ -1,0 +1,61 @@
+@import '../../index.css';
+
+.borrow-detail-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--light-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.borrow-detail-container h2 {
+    text-align: center;
+    color: var(--main-title-color);
+}
+
+.borrow-detail-container p {
+    font-size: 16px;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.borrow-detail-container .book-info {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: var(--info-bg-color);
+    border-radius: 4px;
+}
+
+.borrow-detail-container .book-info p {
+    margin: 0;
+}
+
+.borrow-detail-container button {
+    margin-right: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--button-bg-color);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.borrow-detail-container button:hover {
+    background-color: var(--button-hover-color);
+}
+
+.borrow-detail-container button.delete-btn {
+    background-color: var(--delete-btn-bg-color);
+}
+
+.borrow-detail-container button.delete-btn:hover {
+    background-color: var(--delete-btn-hover-bg-color);
+}
+
+.error-message {
+    color: var(--error-color);
+    font-weight: bold;
+}

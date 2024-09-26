@@ -1,0 +1,46 @@
+@import '../../index.css';
+
+.publisher-edit-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background: var(--background-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h2 {
+    text-align: center;
+    color: var(--text-color-dark);
+}
+
+.form-input,
+.form-textarea {
+    margin-bottom: 15px;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    border-color: var(--focus-border-color);
+    outline: none;
+}
+
+.form-button {
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: var(--text-color-white);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.form-button:hover {
+    background-color: var(--primary-hover-color);
+}

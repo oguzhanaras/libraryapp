@@ -1,8 +1,7 @@
-// Categories.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import './Categories.css';
 
 function Categories() {
     const [categories, setCategories] = useState([]);
@@ -11,82 +10,81 @@ function Categories() {
         name: "",
         description: "",
     });
-    const navigate = useNavigate();
 
     useEffect(() => {
-        // kategorileri çekme
+        // Kategorileri çekme
         axios
-        .get(import.meta.env.VITE_APP_BASE_URL + "/api/v1/categories")
-        .then((response) => {
-            setCategories(response.data);
-        })
-        .catch((error) => {
-            setError(error.message);
-        });
+            .get(import.meta.env.VITE_APP_BASE_URL + "/api/v1/categories")
+            .then((response) => {
+                setCategories(response.data);
+            })
+            .catch((error) => {
+                setError(error.message);
+            });
     }, []);
 
     const handleInputChange = (e) => {
-        // form verilerini güncelleme
+        // Form verilerini güncelleme
         setFormData({
-        ...formData,
-        [e.target.name]: e.target.value,
+            ...formData,
+            [e.target.name]: e.target.value,
         });
     };
 
     const addCategory = (e) => {
         e.preventDefault();
 
-        // kategori ekleme
+        // Kategori ekleme
         axios
-        .post(import.meta.env.VITE_APP_BASE_URL + "/api/v1/categories", formData)
-        .then((response) => {
-            setCategories([...categories, response.data]);
-            setFormData({
-            name: "",
-            description: "",
+            .post(import.meta.env.VITE_APP_BASE_URL + "/api/v1/categories", formData)
+            .then((response) => {
+                setCategories([...categories, response.data]);
+                setFormData({
+                    name: "",
+                    description: "",
+                });
+            })
+            .catch((error) => {
+                setError(error.message);
             });
-        })
-        .catch((error) => {
-            setError(error.message);
-        });
     };
 
     if (error) return <div>Hata: {error}</div>;
 
     return (
-        <div>
+        <div className="categories-wrapper">
             <h2>Kategori Ekle</h2>
             <form onSubmit={addCategory}>
                 <div>
-                <label htmlFor="name">Kategori İsmi:</label>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                />
+                    <label htmlFor="name">Kategori İsmi:</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                    />
                 </div>
                 <div>
-                <label htmlFor="description">Açıklama:</label>
-                <input
-                    type="text"
-                    id="description"
-                    name="description"
-                    value={formData.description}
-                    onChange={handleInputChange}
-                    required
-                />
+                    <label htmlFor="description">Açıklama:</label>
+                    <input
+                        type="text"
+                        id="description"
+                        name="description"
+                        value={formData.description}
+                        onChange={handleInputChange}
+                        required
+                    />
                 </div>
                 <button type="submit">Kategori Ekle</button>
             </form>
 
             <h2>Mevcut Kategoriler</h2>
-            <div>
+            <div className="categories-container">
                 {categories.map((category) => (
-                    <Link to={`/categories/${category.id}`} key={category.id}>
-                        <div>
+                    <Link to={`/categories/${category.id}`} key={category.id} className="link">
+                        <div className="category-card">
                             <h3>{category.name}</h3>
                         </div>
                     </Link>

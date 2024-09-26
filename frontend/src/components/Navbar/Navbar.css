@@ -1,41 +1,61 @@
+@import '../../index.css';
+
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #2c3e50;
-    padding: 10px 20px;
+    background-color: var(--primary-color);
+    padding: 15px 20px;
     color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1000;
 }
 
 .navbar-logo h1 {
     margin: 0;
-    font-size: 24px;
+    font-size: 26px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 1px;
 }
 
 .navbar-toggle {
     display: none;
     cursor: pointer;
-    font-size: 24px;
+    font-size: 28px;
+    color: white;
+    border: none;
+    background: none;
 }
 
 .navbar-menu {
     list-style: none;
     display: flex;
+    margin: 0;
 }
 
 .navbar-menu li {
-    padding: 0 15px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
 }
 
 .navbar-menu li a {
     color: white;
     font-weight: 500;
-    transition: color 0.3s;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    text-decoration: none;
+    letter-spacing: 0.5px;
 }
 
 .navbar-menu li a:hover {
-    color: #3498db;
+    color: var(--secondary-color);
+}
+
+.navbar-menu li a.active {
+    border-bottom: 2px solid var(--secondary-color); /* Aktif sayfa göstergesi */
 }
 
 @media (max-width: 768px) {
@@ -43,11 +63,13 @@
         display: none;
         flex-direction: column;
         position: absolute;
-        top: 60px;
+        top: 100%;
         left: 0;
         right: 0;
-        background-color: #2c3e50;
+        background-color: var(--primary-color); /* Mobil menü arka plan rengi */
         padding: 10px 0;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     }
 
     .navbar-menu.active {
@@ -60,9 +82,16 @@
 
     .navbar {
         flex-direction: column;
+        align-items: flex-start;
     }
 
     .navbar-menu li {
-        padding: 10px 0;
+        width: 100%;
+        padding: 12px 20px;
+        text-align: left;
+    }
+
+    .navbar-menu li a {
+        width: 100%;
     }
 }

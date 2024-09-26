@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import './AuthorDetail.css';
 
 function AuthorDetail() {
     const { state } = useLocation();
@@ -27,13 +28,15 @@ function AuthorDetail() {
     }
 
     return (
-        <div>
+        <div className="author-detail-container">
             <h2>Yazar Detayı</h2>
             <p><strong>İsim:</strong> {author.name}</p>
             <p><strong>Doğum Tarihi:</strong> {author.birthDate}</p>
             <p><strong>Ülke:</strong> {author.country}</p>
-            <button onClick={editAuthor}>Güncelle</button>
-            <button onClick={deleteAuthor}>Sil</button>
+            <div className="button-container">
+                <button onClick={editAuthor} className="edit-button">Güncelle</button>
+                <button onClick={deleteAuthor} className="delete-button">Sil</button>
+            </div>
         </div>
     );
 }

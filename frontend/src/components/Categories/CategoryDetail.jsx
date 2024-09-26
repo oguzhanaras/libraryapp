@@ -1,7 +1,7 @@
-// CategoryDetail.jsx
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import './CategoryDetail.css';
 
 const CategoryDetail = () => {
     const { id } = useParams();
@@ -11,14 +11,14 @@ const CategoryDetail = () => {
 
     useEffect(() => {
         const fetchCategory = async () => {
-        try {
-            const response = await axios.get(
-            `${import.meta.env.VITE_APP_BASE_URL}/api/v1/categories/${id}`
-            );
-            setCategory(response.data);
-        } catch (error) {
-            setError(error.message);
-        }
+            try {
+                const response = await axios.get(
+                    `${import.meta.env.VITE_APP_BASE_URL}/api/v1/categories/${id}`
+                );
+                setCategory(response.data);
+            } catch (error) {
+                setError(error.message);
+            }
         };
 
         fetchCategory();
@@ -26,12 +26,12 @@ const CategoryDetail = () => {
 
     const handleDeleteCategory = async () => {
         try {
-        await axios.delete(
-            `${import.meta.env.VITE_APP_BASE_URL}/api/v1/categories/${id}`
-        );
-        navigate("/categories");
+            await axios.delete(
+                `${import.meta.env.VITE_APP_BASE_URL}/api/v1/categories/${id}`
+            );
+            navigate("/categories");
         } catch (error) {
-        setError(error.message);
+            setError(error.message);
         }
     };
 
@@ -39,16 +39,14 @@ const CategoryDetail = () => {
     if (!category) return <div>Yükleniyor...</div>;
 
     return (
-        <div>
-        <h2>Kategori Detayları</h2>
-        <p>
-            <strong>İsim:</strong> {category.name}
-        </p>
-        <p>
-            <strong>Açıklama:</strong> {category.description}
-        </p>
-        <button onClick={() => navigate(`/categories/edit/${id}`)}>Güncelle</button>
-        <button onClick={handleDeleteCategory}>Sil</button>
+        <div className="category-detail">
+            <h2>Kategori Detayları</h2>
+            <p><strong>İsim:</strong> {category.name}</p>
+            <p><strong>Açıklama:</strong> {category.description}</p>
+            <div className="button-container">
+                <button onClick={() => navigate(`/categories/edit/${id}`)}>Güncelle</button>
+                <button onClick={handleDeleteCategory}>Sil</button>
+            </div>
         </div>
     );
 };

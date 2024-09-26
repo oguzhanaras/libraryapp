@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import './Author.css';
 
 function Authors() {
     const [authors, setAuthors] = useState([]);
@@ -41,39 +42,43 @@ function Authors() {
     };
 
     return (
-        <>
-            <h2>Authors</h2>
-            <h6>Author Ekle</h6>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            <form onSubmit={addAuthor}>
+        <div className="authors-container">
+            <h2>Yazarlar</h2>
+            <h6>Yeni Yazar Ekle</h6>
+            {error && <p className="error-message">{error}</p>}
+            <form onSubmit={addAuthor} className="author-form">
                 <input
                     type="text"
-                    placeholder="Name"
+                    placeholder="İsim"
                     value={author.name}
                     onChange={(e) => setAuthor({ ...author, name: e.target.value })}
+                    required
                 />
                 <input
                     type="date"
-                    placeholder="Birth Date"
                     value={author.birthDate}
                     onChange={(e) => setAuthor({ ...author, birthDate: e.target.value })}
+                    required
                 />
                 <input
                     type="text"
-                    placeholder="Country"
+                    placeholder="Ülke"
                     value={author.country}
                     onChange={(e) => setAuthor({ ...author, country: e.target.value })}
+                    required
                 />
-                <button type="submit">Add Author</button>
+                <button type="submit">Yazar Ekle</button>
             </form>
-            {authors.map((author) => (
-                <div key={author.id} onClick={() => goToAuthorDetail(author)}>
-                    <h3>{author.name}</h3>
-                    <p>{author.birthDate}</p>
-                    <p>{author.country}</p>
-                </div>
-            ))}
-        </>
+            <div className="authors-list">
+                {authors.map((author) => (
+                    <div key={author.id} className="author-card" onClick={() => goToAuthorDetail(author)}>
+                        <h3>{author.name}</h3>
+                        <p>{author.birthDate}</p>
+                        <p>{author.country}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
     );
 }
 

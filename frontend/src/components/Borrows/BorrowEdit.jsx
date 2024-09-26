@@ -1,7 +1,8 @@
-// BorrowEdit.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import Notification from '../Notifications/Notification';
+import './BorrowEdit.css';
 
 function BorrowEdit() {
     const { id } = useParams(); // URL'den borrows id'sini al
@@ -13,7 +14,7 @@ function BorrowEdit() {
         book: null, // Kitap nesnesi
     });
     const [error, setError] = useState(null);
-    const [successMessage, setSuccessMessage] = useState(null);
+    const [notification, setNotification] = useState({ message: '', type: '' });
 
     useEffect(() => {
         const fetchBorrowDetail = async () => {
@@ -21,7 +22,7 @@ function BorrowEdit() {
                 const response = await axios.get(import.meta.env.VITE_APP_BASE_URL + `/api/v1/borrows/${id}`);
                 setBorrow(response.data);
             } catch (error) {
-                setError("Kiralama detayları yüklenirken bir hata oluştu: " + error.message);
+                setNotification({ message: `Kiralama detayları yüklenirken bir hata oluştu: ${error.message}`, type: 'error' });
             }
         };
         fetchBorrowDetail();
@@ -39,20 +40,29 @@ function BorrowEdit() {
         e.preventDefault();
         try {
             await axios.put(import.meta.env.VITE_APP_BASE_URL + `/api/v1/borrows/${id}`, borrow);
-            setSuccessMessage("Kiralama bilgileri başarıyla güncellendi!");
+            setNotification({ message: 'Kiralama bilgileri başarıyla güncellendi!', type: 'success' });
             setTimeout(() => navigate(`/borrows/${id}`), 2000); // 2 saniye sonra yönlendir
         } catch (error) {
-            setError("Kiralama güncellenirken bir hata oluştu: " + error.message);
+            setNotification({ message: `Kiralama güncellenirken bir hata oluştu: ${error.message}`, type: 'error' });
         }
     };
 
+    const handleCloseNotification = () => {
+        setNotification({ message: '', type: '' });
+    };
+
     return (
-        <>
+        <div className="borrow-edit-container">
             <h2>Kiralama Güncelle</h2>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
+
+            <Notification
+                message={notification.message}
+                type={notification.type}
+                onClose={handleCloseNotification}
+            />
+
             <form onSubmit={handleUpdate}>
-                <div>
+                <div className="form-group">
                     <label>Kiralayan:</label>
                     <input
                         type="text"
@@ -60,9 +70,10 @@ function BorrowEdit() {
                         value={borrow.borrowerName}
                         onChange={handleChange}
                         required
+                        className="form-control"
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Kiralayan E-posta:</label>
                     <input
                         type="email"
@@ -70,9 +81,10 @@ function BorrowEdit() {
                         value={borrow.borrowerMail}
                         onChange={handleChange}
                         required
+                        className="form-control"
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Kiralama Tarihi:</label>
                     <input
                         type="date"
@@ -80,13 +92,14 @@ function BorrowEdit() {
                         value={borrow.borrowingDate}
                         onChange={handleChange}
                         required
+                        className="form-control"
                     />
                 </div>
-                <div>
-                    <button type="submit">Güncelle</button>
+                <div className="form-group">
+                    <button type="submit" className="btn-submit">Güncelle</button>
                 </div>
             </form>
-        </>
+        </div>
     );
 }
 

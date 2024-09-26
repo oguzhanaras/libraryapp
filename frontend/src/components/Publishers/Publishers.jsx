@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import './Publisher.css';
+import Notification from '../Notifications/Notification.jsx';
 
 function Publishers() {
     const [publishers, setPublishers] = useState([]);
@@ -10,22 +12,24 @@ function Publishers() {
         establishmentYear: "",
         address: "",
     });
+    const [notification, setNotification] = useState({ message: '', type: '' }); // Bildirim state'i
 
     useEffect(() => {
         axios
-        .get(import.meta.env.VITE_APP_BASE_URL + "/api/v1/publishers")
-        .then((response) => {
-            setPublishers(response.data);
-        })
-        .catch((error) => {
-            setError(error.message);
-        });
+            .get(import.meta.env.VITE_APP_BASE_URL + "/api/v1/publishers")
+            .then((response) => {
+                setPublishers(response.data);
+            })
+            .catch((error) => {
+                setError(error.message);
+                setNotification({ message: 'Yayınevleri yüklenirken bir hata oluştu: ' + error.message, type: 'error' });
+            });
     }, []);
 
     const handleInputChange = (e) => {
         setFormData({
-        ...formData,
-        [e.target.name]: e.target.value,
+            ...formData,
+            [e.target.name]: e.target.value,
         });
     };
 
@@ -33,62 +37,70 @@ function Publishers() {
         e.preventDefault();
 
         axios
-        .post(import.meta.env.VITE_APP_BASE_URL + "/api/v1/publishers", formData)
-        .then((response) => {
-            // publisher guncelleme
-            setPublishers([...publishers, response.data]);
-            // form temizle
-            setFormData({
-            name: "",
-            establishmentYear: "",
-            address: "",
+            .post(import.meta.env.VITE_APP_BASE_URL + "/api/v1/publishers", formData)
+            .then((response) => {
+                setPublishers([...publishers, response.data]);
+                setFormData({
+                    name: "",
+                    establishmentYear: "",
+                    address: "",
+                });
+                setNotification({ message: 'Yayınevi başarıyla eklendi!', type: 'success' });
+            })
+            .catch((error) => {
+                setError(error.message);
+                setNotification({ message: 'Yayınevi eklenirken bir hata oluştu: ' + error.message, type: 'error' });
             });
-        })
-        .catch((error) => {
-            setError(error.message);
-        });
     };
 
-    if (error) return <div>Hata: {error}</div>;
+    // Bildirimi kapatmak için onClose fonksiyonu
+    const closeNotification = () => {
+        setNotification({ message: '', type: '' });
+    };
 
     return (
         <>
-            <h2>Publishers</h2>
-            <form method="post" onSubmit={addPublisher}>
-                <label htmlFor="name">Adınız:</label>
-                <input
-                type="text"
-                name="name"
-                placeholder="Publisher name"
-                value={formData.name}
-                onChange={handleInputChange}
-                />
+            <h2>Yayınevleri</h2>
+            {/* Bildirim Bileşeni */}
+            {notification.message && (
+                <Notification message={notification.message} type={notification.type} onClose={closeNotification} />
+            )}
 
-                <label htmlFor="establishmentYear">Kuruluş yılı:</label>
+            <form className="publisher-form" method="post" onSubmit={addPublisher}>
                 <input
-                type="text"
-                name="establishmentYear"
-                value={formData.establishmentYear}
-                onChange={handleInputChange}
+                    className="form-input"
+                    type="text"
+                    name="name"
+                    placeholder="Yayınevi adı"
+                    value={formData.name}
+                    onChange={handleInputChange}
                 />
-
+                <input
+                    className="form-input"
+                    type="text"
+                    name="establishmentYear"
+                    placeholder="Kuruluş yılı"
+                    value={formData.establishmentYear}
+                    onChange={handleInputChange}
+                />
                 <textarea
-                name="address"
-                placeholder="Adresinizi girin"
-                value={formData.address}
-                onChange={handleInputChange}
+                    className="form-textarea"
+                    name="address"
+                    placeholder="Adresinizi girin"
+                    value={formData.address}
+                    onChange={handleInputChange}
                 ></textarea>
-
-                <button type="submit">Ekle</button>
+                <button className="form-button" type="submit">Ekle</button>
             </form>
-            <ul>
+
+            {/* Yayınevleri Listesi */}
+            <ul className="publisher-list">
                 {publishers.map((publisher) => (
                     <Link to={`/publishers/${publisher.id}`} key={publisher.id}>
-                        <li key={publisher.id}>{publisher.name}</li>
+                        <li className="publisher-item">{publisher.name}</li>
                     </Link>
                 ))}
             </ul>
-            <p>Total publishers: {publishers.length}</p>
         </>
     );
 }

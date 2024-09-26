@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import './AuthorEdit.css';
 
 function AuthorEdit() {
     const { id } = useParams();
@@ -36,27 +37,29 @@ function AuthorEdit() {
     };
 
     return (
-        <div>
+        <div className="author-edit-container">
             <h2>Yazar Güncelle</h2>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            <form onSubmit={handleUpdate}>
+            {error && <p className="error-message">{error}</p>}
+            <form onSubmit={handleUpdate} className="author-edit-form">
                 <input
                     type="text"
-                    placeholder="Name"
+                    placeholder="İsim"
                     value={author.name}
                     onChange={(e) => setAuthor({ ...author, name: e.target.value })}
+                    required
                 />
                 <input
                     type="date"
-                    placeholder="Birth Date"
                     value={author.birthDate}
                     onChange={(e) => setAuthor({ ...author, birthDate: e.target.value })}
+                    required
                 />
                 <input
                     type="text"
-                    placeholder="Country"
+                    placeholder="Ülke"
                     value={author.country}
                     onChange={(e) => setAuthor({ ...author, country: e.target.value })}
+                    required
                 />
                 <button type="submit">Güncelle</button>
             </form>

@@ -53,7 +53,7 @@ function BookEdit() {
 
     const handleCategoryChange = (index, value) => {
         const updatedCategories = [...book.categories];
-        updatedCategories[index] = { ...updatedCategories[index], id: value };
+        updatedCategories[index] = { id: value }; // Update only the ID
         setBook((prevBook) => ({ ...prevBook, categories: updatedCategories }));
     };
 
@@ -62,7 +62,7 @@ function BookEdit() {
         try {
             await axios.put(`${import.meta.env.VITE_APP_BASE_URL}/api/v1/books/${id}`, book);
             setNotification({ message: 'Kitap başarıyla güncellendi!', type: 'success' });
-            
+
             // Yönlendirmeyi 3 saniye sonra gerçekleştir
             setTimeout(() => {
                 navigate('/books');
@@ -77,89 +77,87 @@ function BookEdit() {
     if (error) return <div className="error">Hata: {error}</div>;
 
     return (
-        <div className="book-edit-container">
+        <>
             <h2>Kitap Düzenle</h2>
-            <Notification
-                message={notification.message}
-                type={notification.type}
-                onClose={() => setNotification({ message: '', type: '' })}
-            />
-            <form onSubmit={handleSubmit} className="book-edit-form">
-                <div className="form-group">
-                    <label>Kitap Adı:</label>
-                    <input type="text" name="name" value={book.name} onChange={handleChange} />
-                </div>
-                <div className="form-group">
-                    <label>Yazar:</label>
-                    <select
-                        name="author"
-                        value={book.author.id}
-                        onChange={(e) =>
-                            setBook((prevBook) => ({
-                                ...prevBook,
-                                author: authors.find((author) => author.id === parseInt(e.target.value)),
-                            }))
-                        }
-                    >
-                        <option value="" disabled>Yazar Seç</option>
-                        {authors.map((author) => (
-                            <option key={author.id} value={author.id}>
-                                {author.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="form-group">
-                    <label>Yayınevi:</label>
-                    <select
-                        name="publisher"
-                        value={book.publisher.id}
-                        onChange={(e) =>
-                            setBook((prevBook) => ({
-                                ...prevBook,
-                                publisher: publishers.find((publisher) => publisher.id === parseInt(e.target.value)),
-                            }))
-                        }
-                    >
-                        <option value="" disabled>Yayınevi Seç</option>
-                        {publishers.map((publisher) => (
-                            <option key={publisher.id} value={publisher.id}>
-                                {publisher.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="form-group">
-                    <label>Yayın Yılı:</label>
-                    <input type="number" name="publicationYear" value={book.publicationYear} onChange={handleChange} />
-                </div>
-                <div className="form-group">
-                    <label>Stok:</label>
-                    <input type="number" name="stock" value={book.stock} onChange={handleChange} />
-                </div>
-                <div className="form-group">
-                    <h6>Kategoriler:</h6>
-                    {book.categories.map((category, index) => (
+            <div className="book-edit-container">
+                <Notification
+                    message={notification.message}
+                    type={notification.type}
+                    onClose={() => setNotification({ message: '', type: '' })}
+                />
+                <form onSubmit={handleSubmit} className="book-edit-form">
+                    <div className="form-group">
+                        <label>Kitap Adı:</label>
+                        <input type="text" name="name" value={book.name} onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                        <label>Yazar:</label>
                         <select
-                            key={index} // id yerine index kullanmak daha güvenli
-                            value={category.id}
-                            onChange={(e) => handleCategoryChange(index, parseInt(e.target.value))}
+                            name="author"
+                            value={book.author.id}
+                            onChange={(e) => {
+                                const selectedAuthor = authors.find((author) => author.id === parseInt(e.target.value));
+                                setBook((prevBook) => ({ ...prevBook, author: selectedAuthor }));
+                            }}
                         >
-                            <option value="" disabled>Kategori Seç</option>
-                            {categories.map((cat) => (
-                                <option key={cat.id} value={cat.id}>
-                                    {cat.name}
+                            <option value="" disabled>Yazar Seç</option>
+                            {authors.map((author) => (
+                                <option key={author.id} value={author.id}>
+                                    {author.name}
                                 </option>
                             ))}
                         </select>
-                    ))}
-                </div>
-                <div className="form-actions">
-                    <button type="submit" className="save-btn">Kaydet</button>
-                    <button type="button" className="cancel-btn" onClick={() => navigate('/books')}>İptal</button>
-                </div>
-            </form>
-        </div>
+                    </div>
+                    <div className="form-group">
+                        <label>Yayınevi:</label>
+                        <select
+                            name="publisher"
+                            value={book.publisher.id}
+                            onChange={(e) => {
+                                const selectedPublisher = publishers.find((publisher) => publisher.id === parseInt(e.target.value));
+                                setBook((prevBook) => ({ ...prevBook, publisher: selectedPublisher }));
+                            }}
+                        >
+                            <option value="" disabled>Yayınevi Seç</option>
+                            {publishers.map((publisher) => (
+                                <option key={publisher.id} value={publisher.id}>
+                                    {publisher.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="form-group">
+                        <label>Yayın Yılı:</label>
+                        <input type="number" name="publicationYear" value={book.publicationYear} onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                        <label>Stok:</label>
+                        <input type="number" name="stock" value={book.stock} onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                        <h6>Kategoriler:</h6>
+                        {book.categories.map((category, index) => (
+                            <select
+                                key={index}
+                                value={category.id}
+                                onChange={(e) => handleCategoryChange(index, parseInt(e.target.value))}
+                            >
+                                <option value="" disabled>Kategori Seç</option>
+                                {categories.map((cat) => (
+                                    <option key={cat.id} value={cat.id}>
+                                        {cat.name}
+                                    </option>
+                                ))}
+                            </select>
+                        ))}
+                    </div>
+                    <div className="form-actions">
+                        <button type="submit" className="save-btn">Kaydet</button>
+                        <button type="button" className="cancel-btn" onClick={() => navigate('/books')}>İptal</button>
+                    </div>
+                </form>
+            </div>
+        </>
     );
 }
 

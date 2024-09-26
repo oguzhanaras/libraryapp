@@ -1,155 +1,122 @@
-.title {
+@import '../../index.css';
+
+h2.title {
     text-align: center;
-    margin-top: 30px;
-    font-size: 32px;
-    color: #34495e;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text-color);
+    margin: 50px 0;
+    letter-spacing: -0.5px;
 }
 
-/* Sayfa düzeni */
 .books-page {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 50px;
+    justify-content: space-between;
+    padding: 40px 5%;
 }
 
-/* Sol panel (Kitap ara ve ekle) */
 .book-form-container {
-    width: 30%;
-    margin-right: 40px;
-    background-color: rgba(45, 93, 112, 0.445);
-    padding: 20px;
-    border-radius: 10px;
+    flex-basis: 35%;
+    padding: 40px;
+    background-color: var(--card-bg-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px var(--shadow-color);
+    border: 1px solid var(--border-color);
 }
 
-.book-side {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.books-container h6 {
-    margin: 10px 0;
-    color: #2c3e50;
-    font-size: 18px;
-}
-
-.books-input input,
-.books-input select,
-.search-input {
+.books-input input, .books-input select {
     width: 100%;
-    padding: 12px;
-    margin: 5px 0;
-    border-radius: 5px;
-    border: 1px solid #dfe6e9;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: #FBFBFB;
     font-size: 16px;
-    background-color: #f0f0f0;
+    outline: none;
+    transition: border-color 0.3s ease;
 }
 
-.books-input button {
+.books-input input:focus, .books-input select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+}
+
+button {
     width: 100%;
-    padding: 12px;
-    background-color: #007bff;
+    padding: 16px;
+    background-image: var(--primary-gradient);
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 18px;
+    border-radius: 8px;
+    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    letter-spacing: 0.5px;
 }
 
-.books-input button:hover {
-    background-color: #0056b3;
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px var(--shadow-color);
 }
 
-/* Kitap listesi */
 .books-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    width: 70%;
+    gap: 25px;
+    flex-basis: 60%;
 }
 
-/* Kitap kartı */
 .book-card {
-    width: 200px;
-    height: 300px;
-    background-color: #ffffff;
-    border-radius: 8px;
+    flex-basis: calc(33.333% - 20px);
+    background-color: var(--card-bg-color);
+    border-radius: 12px;
     padding: 20px;
-    margin: 10px;
-    text-decoration: none;
-    color: #333;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .book-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px var(--shadow-color);
 }
 
-/* Kitap sırtı */
-.book-shape {
-    background-color: #e0f7fa;
-    border-left: 10px solid #009688;
-    box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.2);
-    padding-left: 15px;
-}
-
-/* Kitap kapağı */
-.book-cover {
-    margin: 15px;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
-}
-
-/* Başlık */
-.book-cover h3 {
-    margin: 10px 0;
+.book-card h3 {
     font-size: 20px;
-    color: #2c3e50;
-    text-align: center;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-color);
 }
 
-/* Yazar bilgisi */
-.author {
-    margin: 8px 0;
-    font-size: 16px; 
-    color: #7f8c8d;
+.book-card .author, .book-card .publisher {
+    font-size: 14px;
+    color: #7D7D7D;
+    margin-bottom: 8px;
 }
 
-/* Yayınevi bilgisi */
-.book-cover span {
-    font-size: 14px; 
-    color: #7f8c8d;
-    display: block;
-    margin: 4px 0;
+.book-card hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 12px 0;
 }
 
-/* Yayın yılı */
-.book-cover p {
-    font-size: 14px; 
-    color: #7f8c8d;
-    margin: 4px 0;
-}
-
-/* Kategoriler */
-.book-cover ul {
+.book-card .category {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
     padding: 0;
-    list-style-type: none;
-    color: #2c3e50;
-    margin: 10px 0;
 }
 
-.book-cover li {
-    font-size: 12px; 
-    color: #7f8c8d;
-    margin: 2px 0;
+.book-card .category li {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    text-transform: uppercase;
 }
 
+.book-card .category li:hover {
+    background-image: var(--primary-gradient);
+}

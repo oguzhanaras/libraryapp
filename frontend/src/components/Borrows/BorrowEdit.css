@@ -1,0 +1,66 @@
+@import '../../index.css';
+
+.borrow-edit-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--light-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.borrow-edit-container h2 {
+    text-align: center;
+    color: var(--main-title-color);
+}
+
+.borrow-edit-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.borrow-edit-container label {
+    font-weight: bold;
+    color: var(--label-color);
+}
+
+.borrow-edit-container input {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.borrow-edit-container button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--button-bg-color);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.borrow-edit-container button:hover {
+    background-color: var(--button-hover-color);
+}
+
+.notification {
+    margin-bottom: 20px;
+    padding: 10px;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.notification.success {
+    background-color: var(--success-bg-color);
+}
+
+.notification.error {
+    background-color: var(--error-bg-color);
+}

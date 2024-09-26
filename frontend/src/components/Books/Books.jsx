@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom"; 
 import './Books.css';
+import Notification from '../Notifications/Notification';
 
 function Books() {
     const [books, setBooks] = useState([]);
@@ -21,6 +22,8 @@ function Books() {
     const [categories, setCategories] = useState([]);
     const [editIndex, setEditIndex] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
+    const [notification, setNotification] = useState('');
+    const [notificationType, setNotificationType] = useState('success'); // 'success' veya 'error'
 
     useEffect(() => {
         axios.get(import.meta.env.VITE_APP_BASE_URL + "/api/v1/books")
@@ -59,9 +62,13 @@ function Books() {
             })
             .then(response => {
                 setBooks([...books, response.data]);
+                setNotification('Kitap başarıyla eklendi!');
+                setNotificationType('success');
             })
             .catch(error => {
                 setError(error.message);
+                setNotification('Kitap eklenirken bir hata oluştu.');
+                setNotificationType('error');
             });
         }
         setBook({
@@ -75,11 +82,16 @@ function Books() {
         });
     };
 
+    const handleCloseNotification = () => {
+        setNotification('');
+    };
+
     if (error) return <div>Hata: {error}</div>;
 
     return (
         <>
             <h2 className="title">Kitaplar</h2>
+            <Notification message={notification} type={notificationType} onClose={handleCloseNotification} />
             <div className="books-page">  
                 <div className="book-form-container">
                     <div className="book-side">
@@ -153,12 +165,10 @@ function Books() {
                         <Link to={`/books/${book.id}`} className="book-card book-shape" key={book.id}>
                             <div className="book-cover">
                                 <h3>{book.name}</h3>
-                                <span className="author">Yazar: <strong>{book.author.name}</strong></span>
+                                <div className="author"><span>Yazar: <strong>{book.author.name}</strong></span></div>
                                 <hr />
-                                <span>Yayınevi: {book.publisher.name}</span>
-                                <p>Yayın Yılı: {book.publicationYear}</p>
-                                <h6>Kategoriler:</h6>
-                                <ul>
+                                <div className="publisher"><span>Yayınevi: <strong>{book.publisher.name}</strong></span></div>
+                                <ul className="category">
                                     {book.categories.map(category => (
                                         <li key={category.id}>{category.name}</li>
                                     ))}

@@ -29,13 +29,12 @@ const BookDetail = () => {
         if (confirmDelete) {
             try {
                 await axios.delete(`${import.meta.env.VITE_APP_BASE_URL}/api/v1/books/${id}`);
-                setNotification({ message: 'Kitap başarıyla silindi.', type: 'success' }); // Başarı mesajı
-                // Yönlendirmeyi 2 saniye sonra yapıyoruz ki bildirim gösterilsin
+                setNotification({ message: 'Kitap başarıyla silindi.', type: 'success' });
                 setTimeout(() => {
                     navigate('/books');
-                }, 2000); // 2 saniye sonra yönlendirme
+                }, 2000);
             } catch (error) {
-                setNotification({ message: `Silme işlemi sırasında bir hata oluştu: ${error.message}`, type: 'error' }); // Hata mesajı
+                setNotification({ message: `Silme işlemi sırasında bir hata oluştu: ${error.message}`, type: 'error' });
             }
         }
     };
@@ -44,26 +43,27 @@ const BookDetail = () => {
         setNotification({ message: '', type: '' });
     };
 
-    if (error) return <div>Hata: {error}</div>;
-    if (!book) return <div>Yükleniyor...</div>;
+    if (error) return <div className="error-message">Hata: {error}</div>;
+    if (!book) return <div className="loading-message">Yükleniyor...</div>;
 
     return (
         <div className="book-detail">
             <h2>{book.name}</h2>
-            <p>Yazar: {book.author.name}</p>
-            <p>Yayınevi: {book.publisher.name}</p>
-            <p>Yayın Yılı: {book.publicationYear}</p>
-            <p>Stok: {book.stock}</p>
+            <p><strong>Yazar:</strong> <span>{book.author.name}</span></p>
+            <p><strong>Yayınevi:</strong> <span>{book.publisher.name}</span></p>
+            <p><strong>Yayın Yılı:</strong> <span>{book.publicationYear}</span></p>
+            <p><strong>Stok:</strong> <span>{book.stock}</span></p>
             <h6>Kategoriler:</h6>
             <ul>
                 {book.categories.map(category => (
                     <li key={category.id}>{category.name}</li>
                 ))}
             </ul>
-            <button onClick={() => navigate(`/books/edit/${id}`)}>Düzenle</button>
-            <button onClick={handleDeleteBook}>Sil</button>
+            <div className="button-group">
+                <button className="edit-button" onClick={() => navigate(`/books/edit/${id}`)}>Düzenle</button>
+                <button className="delete-button" onClick={handleDeleteBook}>Sil</button>
+            </div>
             
-            {/* Bildirim componenti */}
             <Notification 
                 message={notification.message} 
                 type={notification.type} 
