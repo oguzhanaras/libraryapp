@@ -68,6 +68,7 @@ button:hover {
 
 .book-card {
     min-width: 250px;
+    max-height: 350px;
     flex-basis: calc(33.333% - 20px);
     background-color: var(--card-bg-color);
     border-radius: 12px;
