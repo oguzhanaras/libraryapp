@@ -87,10 +87,12 @@ select:focus {
 
 .detail-btn {
     background-color: #28a745;
+    margin: 5px 0;
 }
 
 .edit-btn {
     background-color: #ffc107;
+    margin: 5px 0;
 }
 
 .detail-btn:hover {

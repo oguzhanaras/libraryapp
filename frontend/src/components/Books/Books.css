@@ -5,7 +5,7 @@ h2.title {
     font-size: 36px;
     font-weight: 700;
     color: var(--text-color);
-    margin: 50px 0;
+    margin: 20px 0;
     letter-spacing: -0.5px;
 }
 
@@ -67,6 +67,7 @@ button:hover {
 }
 
 .book-card {
+    min-width: 250px;
     flex-basis: calc(33.333% - 20px);
     background-color: var(--card-bg-color);
     border-radius: 12px;
@@ -119,4 +120,26 @@ button:hover {
 
 .book-card .category li:hover {
     background-image: var(--primary-gradient);
+}
+
+/* Responsive tasarım */
+@media (max-width: 768px) {
+    .books-page {
+        flex-direction: column;
+        padding: 20px 5%;
+    }
+
+    .book-form-container {
+        flex-basis: 100%;
+        margin-bottom: 30px;
+    }
+
+    .books-list {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .book-card {
+        flex-basis: 100%;
+    }
 }

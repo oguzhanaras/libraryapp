@@ -48,6 +48,13 @@ function Books() {
     }, [searchTerm, books]);
 
     const handleAddOrUpdateBook = () => {
+        // Yayın yılı ve stok 0'dan büyük olmalı
+        if (book.publicationYear <= 0 || book.stock <= 0) {
+            setNotification('Yayın yılı ve stok 0\'dan büyük olmalı.');
+            setNotificationType('error');
+            return; // İşlemi durdur
+        }
+    
         if (editIndex !== null) {
             const updatedBooks = [...books];
             updatedBooks[editIndex] = book;
@@ -81,6 +88,7 @@ function Books() {
             categoryIds: []
         });
     };
+    
 
     const handleCloseNotification = () => {
         setNotification('');

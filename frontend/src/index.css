@@ -23,3 +23,7 @@ body {
     padding: 0;
     line-height: 1.6;
 }
+
+a:visited {
+    color: var(--text-color);
+}
