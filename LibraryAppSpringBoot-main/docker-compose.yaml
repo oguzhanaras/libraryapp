@@ -9,14 +9,14 @@ services:
     environment:
       DBURL: postgres:5432
       DBNAME: library-app
-      DBUSERNAME: postgres
-      DBPASSWORD: postgres
+      DBUSERNAME: postgreslibuser
+      DBPASSWORD: postgreslibpassw
 
   postgres:
     image: postgres
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgreslibuser
+      POSTGRES_PASSWORD: postgreslibpassw
       POSTGRES_DB: library-app
